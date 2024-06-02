@@ -17,3 +17,12 @@ bolt 10
 saw 2
 coupler 50
 plier 20
+file 36
+file 28
+washer 56
+washer 7
+bolt 10
+screw 23
+nail 5
+screw 78
+coupler 36
