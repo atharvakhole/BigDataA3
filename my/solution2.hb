@@ -12,11 +12,15 @@ alter 'task2', {NAME => 'ENROLMENT', VERSIONS => 2}
 
 put 'task2', 'E1', 'ENROLMENT:snumber', '007'
 put 'task2', 'E1', 'ENROLMENT:subject_code', '312'
-put 'task2', 'E1', 'ENROLMENT:start_date', '2024-01-16'
+put 'task2', 'E1', 'ENROLMENT:start_date', '2024-02-01'
+
+put 'task2', 'E1', 'ENROLMENT:snumber', '007'
+put 'task2', 'E1', 'ENROLMENT:subject_code', '312'
+put 'task2', 'E1', 'ENROLMENT:start_date', '2024-05-30'
 
 put 'task2', 'E2', 'ENROLMENT:snumber', '666'
 put 'task2', 'E2', 'ENROLMENT:subject_code', '313'
-put 'task2', 'E2', 'ENROLMENT:start_date', '2024-02-11'
+put 'task2', 'E2', 'ENROLMENT:start_date', '2024-01-15'
 
 scan 'task2', {COLUMNS => ['ENROLMENT'], VERSIONS => 1}
 alter 'task2', {NAME => 'ENROLMENT', VERSIONS => 3}
