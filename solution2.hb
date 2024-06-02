@@ -1,10 +1,13 @@
 get 'task2','STUDENT:007',{COLUMN=>'STUDENT:snumber',VERSIONS => 1}
+
 get 'task2', 'SUBMISSION:007:1:312', {COLUMN => ['STUDENT:snumber', 'SUBMISSION:tnumber', 'SUBJECT:code'], VERSIONS => 1}
+
 scan 'task2', {COLUMNS => ['STUDENT:first_name', 'STUDENT:last_name'], VERSIONS => 1}
 
 scan 'task2', {FILTER => "SingleColumnValueFilter('STUDENT', 'last_name', =, 'binary:Potter')", VERSIONS => 1}
 
 alter 'task2', {NAME => 'FILES', METHOD => 'delete'}
+
 alter 'task2', {NAME => 'ENROLMENT', VERSIONS => 2}
 
 put 'task2', 'E1', 'ENROLMENT:snumber', '007'
