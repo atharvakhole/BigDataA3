@@ -1,0 +1,112 @@
+(1):
+scala> val sales = sc.textFile("Sales/sales.txt")
+sales: org.apache.spark.rdd.RDD[String] = Sales/sales.txt MapPartitionsRDD[4] at textFile at <console>:24
+
+scala> val salespart = sales.map(s=>(s.split(" ")(0), (s.split(" ")(1).toInt)))
+salespart: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[5] at map at <console>:25
+
+scala> salespart.collect()
+res1: Array[(String, Int)] = Array((bolt,45), (washer,3), (screw,67), (screw,23), (nail,5), (screw,78), (coupler,36), (bolt,5), (bolt,1), (drill,1), (drill,1), (file,36), (file,28), (washer,56), (washer,7), (bolt,10), (saw,2), (coupler,50), (plier,20))
+
+scala> val salesresult = salespart.reduceByKey((a,b)=>a+b)
+salesresult: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[6] at reduceByKey at <console>:25
+
+scala> salesresult.collect()
+res2: Array[(String, Int)] = Array((screw,168), (plier,20), (nail,5), (washer,66), (coupler,86), (file,64), (bolt,61), (saw,2), (drill,2))
+
+scala> salesresult.foreach(println)
+(screw,168)
+(plier,20)
+(nail,5)
+(washer,66)
+(coupler,86)
+(file,64)
+(bolt,61)
+(saw,2)
+(drill,2)
+
+
+
+(2):
+scala> case class sales(part: String, qty: Long)
+defined class sales
+
+scala> val lines = sc.textFile("Sales/sales.txt")
+lines: org.apache.spark.rdd.RDD[String] = Sales/sales.txt MapPartitionsRDD[1] at textFile at <console>:24
+
+scala> val partsDS = lines.map(_.split(" ")).map(attributes => sales(attributes(0), attributes(1).toInt)).toDS()
+partsDS: org.apache.spark.sql.Dataset[sales] = [part: string, qty: bigint]
+
+scala> partsDS.show()
++-------+---+                                                                   
+|   part|qty|
++-------+---+
+|   bolt| 45|
+| washer|  3|
+|  screw| 67|
+|  screw| 23|
+|   nail|  5|
+|  screw| 78|
+|coupler| 36|
+|   bolt|  5|
+|   bolt|  1|
+|  drill|  1|
+|  drill|  1|
+|   file| 36|
+|   file| 28|
+| washer| 56|
+| washer|  7|
+|   bolt| 10|
+|    saw|  2|
+|coupler| 50|
+|  plier| 20|
++-------+---+
+
+
+scala> val totalsales = partsDS.groupBy("part").sum("qty")
+totalsales: org.apache.spark.sql.DataFrame = [part: string, sum(qty): bigint]
+
+scala> totalsales.show()
++-------+--------+                                                              
+|   part|sum(qty)|
++-------+--------+
+|    saw|       2|
+| washer|      66|
+|   bolt|      61|
+|coupler|      86|
+|   nail|       5|
+|   file|      64|
+|  screw|     168|
+|  drill|       2|
+|  plier|      20|
++-------+--------+
+
+
+
+(3):
+scala> case class sales(part: String, qty: Long)
+defined class sales
+
+scala> val partsDF = sc.textFile("Sales/sales.txt").map(_.split(" ")).map(attributes=>sales(attributes(0), attributes(1).trim.toInt)).toDF()
+partsDF: org.apache.spark.sql.DataFrame = [part: string, qty: bigint]
+
+scala> partsDF.createOrReplaceTempView("parts")
+
+scala> val partssqlDF = spark.sql("select part, sum(qty) from parts group by part")
+partssqlDF: org.apache.spark.sql.DataFrame = [part: string, sum(qty): bigint]
+
+scala> partssqlDF.show()
++-------+--------+                                                              
+|   part|sum(qty)|
++-------+--------+
+|    saw|       2|
+| washer|      66|
+|   bolt|      61|
+|coupler|      86|
+|   nail|       5|
+|   file|      64|
+|  screw|     168|
+|  drill|       2|
+|  plier|      20|
++-------+--------+
+
