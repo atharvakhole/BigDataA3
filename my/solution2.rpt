@@ -1,0 +1,165 @@
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.2.6, rUnknown, Mon May 29 02:25:32 CDT 2017
+
+get 'task2','STUDENT:007',{COLUMN=>'STUDENT:snumber',VERSIONS => 1}
+COLUMN  CELL
+0 row(s) in 0.2640 seconds
+
+
+get 'task2', 'SUBMISSION:007:1:312', {COLUMN => ['STUDENT:snumber', 'SUBMISSION:tnumber', 'SUBJECT:code'], VERSIONS => 1}
+COLUMN  CELL
+0 row(s) in 0.0210 seconds
+
+
+scan 'task2', {COLUMNS => ['STUDENT:first_name', 'STUDENT:last_name'], VERSIONS => 1}
+ROW  COLUMN+CELL
+0 row(s) in 0.0220 seconds
+
+
+scan 'task2', {FILTER => "SingleColumnValueFilter('STUDENT', 'last_name', =, 'binary:Potter')", VERSIONS => 1}
+ROW  COLUMN+CELL
+ student|007 column=STUDENT:degree, timestamp=1717331244833, value=MIT
+ student|007 column=STUDENT:fname, timestamp=1717331244762, value=James
+ student|007 column=STUDENT:lname, timestamp=1717331244788, value=Bond
+ student|007 column=STUDENT:snumber, timestamp=1717331244744, value=007
+ student|666 column=STUDENT:degree, timestamp=1717331244948, value=BCS
+ student|666 column=STUDENT:fname, timestamp=1717331244883, value=Harry
+ student|666 column=STUDENT:lname, timestamp=1717331244915, value=Potter
+ student|666 column=STUDENT:snumber, timestamp=1717331244854, value=666
+ subject|312 column=SUBJECT:code, timestamp=1717331244971, value=312
+ subject|312 column=SUBJECT:credits, timestamp=1717331245047, value=6
+ subject|312 column=SUBJECT:title, timestamp=1717331245009, value=Big Data
+ subject|313 column=SUBJECT:code, timestamp=1717331245098, value=313
+ subject|313 column=SUBJECT:credits, timestamp=1717331245128, value=12
+ subject|313 column=SUBJECT:title, timestamp=1717331245110, value=Very Big Data
+ submission|007|312|assignment|1 column=FILES:fnumber1, timestamp=1717331245418, value=path/file-name1-1
+ submission|007|312|assignment|1 column=FILES:fnumber2, timestamp=1717331245489, value=path/file-name1-1
+ submission|007|312|assignment|1 column=STUDENT:snumber, timestamp=1717331245356, value=007
+ submission|007|312|assignment|1 column=SUBJECT:code, timestamp=1717331245394, value=312
+ submission|007|312|assignment|1 column=SUBMISSION:dayslate, timestamp=1717331245267, value=0
+ submission|007|312|assignment|1 column=SUBMISSION:esignature, timestamp=1717331245219, value=jb
+ submission|007|312|assignment|1 column=SUBMISSION:sdate, timestamp=1717331245181, value=01-APR-2017
+ submission|007|312|assignment|1 column=SUBMISSION:tnumber, timestamp=1717331245339, value=1
+ submission|007|312|assignment|1 column=SUBMISSION:totalfiles, timestamp=1717331245255, value=2
+ submission|007|312|assignment|1 column=SUBMISSION:type, timestamp=1717331245310, value=assignment
+ submission|007|312|assignment|2 column=FILES:fnumber2, timestamp=1717331245799, value=path/file-name2-2
+ submission|007|312|assignment|2 column=FILES:fnumbner1, timestamp=1717331245771, value=path/file-name2-1
+ submission|007|312|assignment|2 column=STUDENT:snumber, timestamp=1717331245725, value=007
+ submission|007|312|assignment|2 column=SUBJECT:code, timestamp=1717331245752, value=312
+ submission|007|312|assignment|2 column=SUBMISSION:dayslate, timestamp=1717331245642, value=0
+ submission|007|312|assignment|2 column=SUBMISSION:esignature, timestamp=1717331245579, value=jb
+ submission|007|312|assignment|2 column=SUBMISSION:sdate, timestamp=1717331245548, value=02-APR-2017
+ submission|007|312|assignment|2 column=SUBMISSION:tnumber, timestamp=1717331245698, value=2
+ submission|007|312|assignment|2 column=SUBMISSION:totalfiles, timestamp=1717331245625, value=2
+ submission|007|312|assignment|2 column=SUBMISSION:type, timestamp=1717331245678, value=assignment
+ submission|007|313|project|1 column=FILES:fnumber1, timestamp=1717331246151, value=path/file-name3-1
+ submission|007|313|project|1 column=STUDENT:snumber, timestamp=1717331246064, value=007
+ submission|007|313|project|1 column=SUBJECT:code, timestamp=1717331246126, value=313
+ submission|007|313|project|1 column=SUBMISSION:dayslate, timestamp=1717331245954, value=0
+ submission|007|313|project|1 column=SUBMISSION:esignature, timestamp=1717331245885, value=jb
+ submission|007|313|project|1 column=SUBMISSION:sdate, timestamp=1717331245856, value=02-APR-2017
+ submission|007|313|project|1 column=SUBMISSION:tnumber, timestamp=1717331246041, value=2
+ submission|007|313|project|1 column=SUBMISSION:totalfiles, timestamp=1717331245926, value=2
+ submission|007|313|project|1 column=SUBMISSION:type, timestamp=1717331245987, value=project
+ submission|666|312|assignment|1 column=FILES:fnumber1, timestamp=1717331246619, value=path/file-name1-1
+ submission|666|312|assignment|1 column=FILES:fnumber2, timestamp=1717331246642, value=path/file-name1-1
+ submission|666|312|assignment|1 column=STUDENT:snumber, timestamp=1717331246577, value=666
+ submission|666|312|assignment|1 column=SUBJECT:code, timestamp=1717331246603, value=312
+ submission|666|312|assignment|1 column=SUBMISSION:dayslate, timestamp=1717331246267, value=0
+ submission|666|312|assignment|1 column=SUBMISSION:esignature, timestamp=1717331246196, value=hp
+ submission|666|312|assignment|1 column=SUBMISSION:sdate, timestamp=1717331246171, value=01-APR-2017
+ submission|666|312|assignment|1 column=SUBMISSION:tnumber, timestamp=1717331246495, value=1
+ submission|666|312|assignment|1 column=SUBMISSION:totalfiles, timestamp=1717331246251, value=2
+ submission|666|312|assignment|1 column=SUBMISSION:type, timestamp=1717331246399, value=assignment
+ submission|666|312|assignment|2 column=FILES:fnumber1, timestamp=1717331246957, value=path/file-name2-1
+ submission|666|312|assignment|2 column=FILES:fnumber2, timestamp=1717331246966, value=path/file-name2-2
+ submission|666|312|assignment|2 column=STUDENT:snumber, timestamp=1717331246878, value=666
+ submission|666|312|assignment|2 column=SUBJECT:code, timestamp=1717331246908, value=312
+ submission|666|312|assignment|2 column=SUBMISSION:dayslate, timestamp=1717331246785, value=0
+ submission|666|312|assignment|2 column=SUBMISSION:esignature, timestamp=1717331246705, value=hp
+ submission|666|312|assignment|2 column=SUBMISSION:sdate, timestamp=1717331246671, value=02-APR-2017
+ submission|666|312|assignment|2 column=SUBMISSION:tnumber, timestamp=1717331246840, value=2
+ submission|666|312|assignment|2 column=SUBMISSION:totalfiles, timestamp=1717331246728, value=2
+ submission|666|312|assignment|2 column=SUBMISSION:type, timestamp=1717331246799, value=assignment
+ submission|666|313|project|1 column=FILES:fnumber1, timestamp=1717331247157, value=path/file-name3-1
+ submission|666|313|project|1 column=STUDENT:snumber, timestamp=1717331247084, value=666
+ submission|666|313|project|1 column=SUBJECT:code, timestamp=1717331247111, value=313
+ submission|666|313|project|1 column=SUBMISSION:dayslate, timestamp=1717331247048, value=0
+ submission|666|313|project|1 column=SUBMISSION:esignature, timestamp=1717331247013, value=hp
+ submission|666|313|project|1 column=SUBMISSION:sdate, timestamp=1717331246977, value=02-APR-2017
+ submission|666|313|project|1 column=SUBMISSION:tnumber, timestamp=1717331247076, value=2
+ submission|666|313|project|1 column=SUBMISSION:totalfiles, timestamp=1717331247027, value=2
+ submission|666|313|project|1 column=SUBMISSION:type, timestamp=1717331247059, value=project
+10 row(s) in 0.0760 seconds
+
+
+alter 'task2', {NAME => 'FILES', METHOD => 'delete'}
+Updating all regions with the new schema...
+0/1 regions updated.
+1/1 regions updated.
+Done.
+0 row(s) in 3.2720 seconds
+
+
+alter 'task2', {NAME => 'ENROLMENT', VERSIONS => 2}
+Updating all regions with the new schema...
+1/1 regions updated.
+Done.
+0 row(s) in 1.9100 seconds
+
+
+put 'task2', 'E1', 'ENROLMENT:snumber', '007'
+0 row(s) in 0.0420 seconds
+
+put 'task2', 'E1', 'ENROLMENT:subject_code', '312'
+0 row(s) in 0.0070 seconds
+
+put 'task2', 'E1', 'ENROLMENT:start_date', '2024-02-01'
+0 row(s) in 0.0110 seconds
+
+
+put 'task2', 'E1', 'ENROLMENT:snumber', '007'
+0 row(s) in 0.0060 seconds
+
+put 'task2', 'E1', 'ENROLMENT:subject_code', '312'
+0 row(s) in 0.0160 seconds
+
+put 'task2', 'E1', 'ENROLMENT:start_date', '2024-05-30'
+0 row(s) in 0.0090 seconds
+
+
+put 'task2', 'E2', 'ENROLMENT:snumber', '666'
+0 row(s) in 0.0070 seconds
+
+put 'task2', 'E2', 'ENROLMENT:subject_code', '313'
+0 row(s) in 0.0080 seconds
+
+put 'task2', 'E2', 'ENROLMENT:start_date', '2024-01-15'
+0 row(s) in 0.1820 seconds
+
+
+scan 'task2', {COLUMNS => ['ENROLMENT'], VERSIONS => 1}
+ROW  COLUMN+CELL
+ E1 column=ENROLMENT:snumber, timestamp=1717331267646, value=007
+ E1 column=ENROLMENT:start_date, timestamp=1717331267675, value=2024-05-30
+ E1 column=ENROLMENT:subject_code, timestamp=1717331267665, value=312
+ E2 column=ENROLMENT:snumber, timestamp=1717331267687, value=666
+ E2 column=ENROLMENT:start_date, timestamp=1717331267890, value=2024-01-15
+ E2 column=ENROLMENT:subject_code, timestamp=1717331267708, value=313
+2 row(s) in 0.0160 seconds
+
+alter 'task2', {NAME => 'ENROLMENT', VERSIONS => 3}
+Updating all regions with the new schema...
+0/1 regions updated.
+1/1 regions updated.
+Done.
+0 row(s) in 2.9370 seconds
+
+
+disable 'task2'
+0 row(s) in 2.2890 seconds
+
+drop 'task2'
+0 row(s) in 1.2640 seconds
+
